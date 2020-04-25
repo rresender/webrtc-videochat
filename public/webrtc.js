@@ -39,15 +39,15 @@ function pageReady() {
       }));
     });
   } else {
-    alert("Sorry, your browser does not support WebRTC!")
+    alert("Sorry, your browser does not support WebRTC!");
   }
-};
+}
 
 function prepareCall() {
   peerConn = new RTCPeerConnection(peerConnCfg);
   peerConn.onicecandidate = onIceCandidateHandler;
   peerConn.onaddstream = onAddStreamHandler;
-};
+}
 
 function initiateCall() {
   prepareCall();
@@ -62,7 +62,7 @@ function initiateCall() {
   }, function (error) {
     console.log(error);
   });
-};
+}
 
 function answerCall() {
   prepareCall();
@@ -77,7 +77,7 @@ function answerCall() {
   }, function (error) {
     console.log(error);
   });
-};
+}
 
 wsc.onmessage = function (evt) {
   console.log("Received");
@@ -115,7 +115,7 @@ function createAndSendOffer() {
       console.log(error);
     }
   );
-};
+}
 
 function createAndSendAnswer() {
   peerConn.createAnswer(
@@ -135,20 +135,20 @@ function createAndSendAnswer() {
       console.log(error);
     }
   );
-};
+}
 
 function onIceCandidateHandler(evt) {
   if (!evt || !evt.candidate) return;
   wsc.send(JSON.stringify({
     "candidate": evt.candidate
   }));
-};
+}
 
 function onAddStreamHandler(evt) {
   videoCallButton.setAttribute("disabled", true);
   endCallButton.removeAttribute("disabled");
   remoteVideo.srcObject = evt.stream;
-};
+}
 
 function endCall() {
   peerConn.close();
@@ -162,4 +162,4 @@ function endCall() {
     localVideo.src = "";
   }
   if (remoteVideo) remoteVideo.src = "";
-};
+}
